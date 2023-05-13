@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CLIENTE</title>
+
+    <link href="proyecto.css" rel="stylesheet" type="text/css">
+
+  </head>
+  <body>
+    <div class="contenedorGeneral">
+
+      <form id="myForm">
+        <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre"><br><br>
+      
+      <label for="direccion">Dirección:</label>
+      <input type="text" id="direccion" name="direccion"><br><br>
+      
+      <label for="telefono">Teléfono:</label>
+      <input type="text" id="telefono" name="telefono"><br><br>
+      
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+    <script>
+      const form = document.getElementById('myForm');
+
+      form.addEventListener('submit', function(event) {
+        event.preventDefault(); // evitar el comportamiento predeterminado del formulario
+
+        const formData = new FormData(form);
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(formData))
+        };
+
+        fetch('http://localhost:8080/clientes', requestOptions)
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
+      });
+    </script>
+  </body>
+</html>

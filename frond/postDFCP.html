@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REALIZAR VENTA</title>
+    <link href="proyecto.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    
+    <div class="contenedorGeneral">
+
+        <form>
+            <label for="cdc">QUE CLIENTE ESTA COMPRANDO</label>
+            <input type="number" id="cdc" name="cdc" value="1"><br>
+            
+        <label for="fdc">CUAL ES EL FOLIO DE ESE CLIENTE</label>
+        <input type="number" id="fdc" name="fdc" value="1"><br>
+
+        <label for="fecha">QUE MOMENTO ES</label>
+        <input type="date" id="fecha" name="fecha"><br>
+
+        <label for="fdv">IDENTIFICADOR DE PRODUCTO</label>
+        <input type="number" id="fdv" name="fdv" value="1"><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+
+    <script>
+
+
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const dc = {
+        c: parseInt(form.cdc.value),
+        f: parseInt(form.fdc.value)
+    };
+
+    const requestOptionsdc = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dc)
+    };
+
+    const urldc = 'http://localhost:8080/dc';
+
+    fetch(urldc, requestOptionsdc)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+
+    const factura = {
+        fecha: form.fecha.value
+    };
+
+    const requestOptionsf = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(factura)
+    };
+
+    const urlf = 'http://localhost:8080/facturas';
+
+    fetch(urlf, requestOptionsf)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+
+
+    const dv = {
+        c: parseInt(form.fdc.value),
+        f: parseInt(form.fdv.value)
+    };
+
+    const requestOptionsdv = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dv)
+    };
+
+    const urldv = 'http://localhost:8080/dv';
+
+    fetch(urldv, requestOptionsdv)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+});
+    </script>
+</body>
+</html>

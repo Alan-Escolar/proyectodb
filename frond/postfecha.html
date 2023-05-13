@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FACTURA</title>
+</head>
+<body>
+    <h1>FACTURA</h1>
+    <form>
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha"><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const data = {
+                fecha: form.fecha.value
+            };
+
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            };
+
+            const url = 'http://localhost:8080/facturas';
+
+            fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
+</body>
+</html>

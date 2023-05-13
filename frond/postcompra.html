@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>COMPRA</title>
+</head>
+<body>
+    <h1>COMPRA</h1>
+    <form>
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio"><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const data = {
+                precio: parseFloat(form.precio.value)
+            };
+
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            };
+
+            const url = 'http://localhost:8080/compras';
+
+            fetch(url, requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
+</body>
+</html>

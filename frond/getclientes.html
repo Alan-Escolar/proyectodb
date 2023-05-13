@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ejemplo de Fetch</title>
+    <link href="proyecto.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+
+    <h1>CLIENTES</h1>
+    
+    <div class="contenedorGeneral">
+        
+        <div id="info"></div>
+        
+    </div>
+
+    <script>
+
+    fetch('http://localhost:8080/clientes')
+    .then(response => response.json())
+    .then(data => {
+    // Iterar sobre cada objeto en el array data
+    data.forEach(item => {
+      // Crear elementos HTML para mostrar la información
+      const nombreElement = document.createElement('p');
+      nombreElement.textContent = `Nombre: ${item.nombre}`;
+
+      const direccionElement = document.createElement('p');
+      direccionElement.textContent = `Dirección: ${item.direccion}`;
+
+      const telefonoElement = document.createElement('p');
+      telefonoElement.textContent = `Teléfono: ${item.telefono}`;
+
+      // Agregar los elementos al DOM
+      document.body.appendChild(nombreElement);
+      document.body.appendChild(direccionElement);
+      document.body.appendChild(telefonoElement);
+    });
+  });
+
+
+        
+    </script>
+  </body>
+</html>

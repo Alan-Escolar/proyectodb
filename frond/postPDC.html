@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREACION DE PRODUCTO</title>
+    <link href="proyecto.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+    
+    <div class="contenedorGeneral">
+
+        <form>
+            <label for="nombre">NOMBRE DEL PRODUCTO</label><br>
+        <input type="text" id="nombre" name="nombre"><br>
+        
+        <label for="preciop">PRECIO AL PUBLICO</label><br>
+        <input type="number" id="preciop" name="preciop"><br>
+        
+        <label for="cantidad">CANTIDAD</label><br>
+        <input type="number" id="cantidad" name="cantidad"><br>
+        
+        <label for="descripcion">DESCRIPCION DE PRODUCTO</label><br>
+        <textarea id="descripcion" name="descripcion"></textarea><br>
+
+        <label for="p">IDENTIFICADOR DE PRODUCTO</label><br>
+        <input type="number" id="p" name="p" value="1"><br>
+
+        <label for="f">IDENTICADOR DE PROVEDOR</label><br>
+        <input type="number" id="f" name="f" value="1"><br>
+        
+        <label for="precioc">PRECIO DE PROVEDOR</label><br>
+        <input type="number" id="precioc" name="precioc"><br>
+        
+        <button type="submit">Enviar</button>
+        </form>
+    
+    </div>
+    <script>
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const compra = {
+                precio: parseFloat(form.precioc.value)
+            };
+
+            const requestOptionsc = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(compra)
+            };
+
+            const urlc = 'http://localhost:8080/compras';
+
+            fetch(urlc, requestOptionsc)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+
+            const dvv = {
+                c: parseInt(form.p.value),
+                f: parseInt(form.f.value)
+            };
+
+            const requestOptionsdvv = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dvv)
+            };
+
+            const urld = 'http://localhost:8080/co';
+
+            fetch(urld, requestOptionsdvv)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+
+        
+
+            const producto = {
+                nombre: form.nombre.value,
+                precio: parseFloat(form.preciop.value),
+                cantidad: parseFloat(form.cantidad.value),
+                descripcion: form.descripcion.value
+            };
+
+            const requestOptionsp = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(producto)
+            };
+
+            const urlp = 'http://localhost:8080/productos';
+
+            fetch(urlp, requestOptionsp)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
+
+</body>
+</html>
